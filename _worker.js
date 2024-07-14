@@ -217,7 +217,7 @@ export default {
 };
 
 /**
- * Handles VLESS over WebSocket requests by creating a WebSocket pair, accepting the WebSocket connection, and processing the VLESS header.
+ * Handles VLESS over WebSocket requests by creating a WebSocket pair, accepting the WebSocket connection, and processing the VLESS header. 
  * @param {import("@cloudflare/workers-types").Request} request The incoming request object.
  * @returns {Promise<Response>} A Promise that resolves to a WebSocket response object.
  */
@@ -827,16 +827,16 @@ const generateRemark = (index, port) => {
        case 1:  
           remark = `💦 BPB - Domain_${index + 1} : ${port}`;  
           break;  
-      // case 2: 
-       // case 3: 
-         //   remark = `💦 BPB - IPv4_${index - 1} : ${port}`; 
-         //   break; 
-       // case 4: 
+       case 2: 
+       case 3: 
+            remark = `💦 BPB - IPv4_${index - 1} : ${port}`; 
+            break; 
+        case 4: 
      case 5:  
-       //     remark = `💦 BPB - IPv6_${index - 3} : ${port}`;  
-          //  break; 
+           remark = `💦 BPB - IPv6_${index - 3} : ${port}`;   
+            break; 
         default: 
-            remark = `💦 BPB - Clean IP_${index - 5} : ${port}`; 
+            remark = `💦 BPB - Clean IP_${index - 5} : ${port}`;  
             break;
     }
 

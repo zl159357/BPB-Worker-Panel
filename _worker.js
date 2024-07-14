@@ -44,7 +44,7 @@ export default {
             if (!upgradeHeader || upgradeHeader !== 'websocket') {
                 
                 const url = new URL(request.url); 
-                const searchParams = new URLSearchParams(url.search);
+                const searchParams = new URLSearchParams(url.search); 
                 const host = request.headers.get('Host');
                 const client = searchParams.get('app');
 
@@ -142,7 +142,7 @@ export default {
 
                             if (password === savedPass) { 
                                 const jwtToken = generateJWTToken(secretKey, password);
-                                const cookieHeader = `jwtToken=${jwtToken}; HttpOnly; Secure; Max-Age=${7 * 24 * 60 * 60}; Path=/; SameSite=Strict`;
+                                const cookieHeader = `jwtToken=${jwtToken}; HttpOnly; Secure; Max-Age=${7 * 24 * 60 * 60}; Path=/; SameSite=Strict`; 
                                 
                                 return new Response('Success', {
                                     status: 200,
@@ -374,7 +374,7 @@ async function handleTCPOutBound(request, remoteSocket, addressRemote, portRemot
 /**
  * Creates a readable stream from a WebSocket server, allowing for data to be read from the WebSocket.
  * @param {import("@cloudflare/workers-types").WebSocket} webSocketServer The WebSocket server to create the readable stream from.
- * @param {string} earlyDataHeader The header containing early data for WebSocket 0-RTT.
+ * @param {string} earlyDataHeader The header containing early data for WebSocket 0-RTT. 
  * @param {(info: string)=> void} log The logging function.
  * @returns {ReadableStream} A readable stream that can be used to read data from the WebSocket.
  */
@@ -821,20 +821,20 @@ const getNormalConfigs = async (env, hostName, client) => {
 }
 
 const generateRemark = (index, port) => {
-    let remark = '';
+    let remark = ''; 
     switch (index) {
         case 0:  
-       case 1:  
-          remark = `💦 BPB - Domain_${index + 1} : ${port}`;  
+      // case 1:   
+          remark = `💦 BPB - Domain_${index + 1} : ${port}`;   
+         // break;   
+       //case 2:  
+      case 3:  
+            remark = `💦 BPB - IPv4_${index - 1} : ${port}`;  
           break;  
-       case 2: 
-       case 3: 
-            remark = `💦 BPB - IPv4_${index - 1} : ${port}`; 
-            break; 
-        case 4: 
-     case 5:  
-           remark = `💦 BPB - IPv6_${index - 3} : ${port}`;   
-            break; 
+       // case 4: 
+   case 5:   
+         //  remark = `💦 BPB - IPv6_${index - 3} : ${port}`;    
+         / /  break;  
         default: 
             remark = `💦 BPB - Clean IP_${index - 5} : ${port}`;  
             break;

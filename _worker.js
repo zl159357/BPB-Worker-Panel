@@ -6,7 +6,7 @@
 import { connect } from 'cloudflare:sockets';
 
 // How to generate your own UUID:
-// https://www.uuidgenerator.net/
+// https://www.uuidgenerator.net/ 
 let userID = '89b3cbba-e6ac-485a-9481-976a0415eab9';
 
 // https://www.nslookup.io/domains/cdn.xn--b6gac.eu.org/dns-records/
@@ -140,7 +140,7 @@ export default {
                             const password = await request.text();
                             const savedPass = await env.bpb.get('pwd');
 
-                            if (password === savedPass) {
+                            if (password === savedPass) { 
                                 const jwtToken = generateJWTToken(secretKey, password);
                                 const cookieHeader = `jwtToken=${jwtToken}; HttpOnly; Secure; Max-Age=${7 * 24 * 60 * 60}; Path=/; SameSite=Strict`;
                                 
@@ -262,7 +262,7 @@ async function vlessOverWSHandler(request) {
 				portRemote = 443,
 				addressRemote = '',
 				rawDataIndex,
-				vlessVersion = new Uint8Array([0, 0]),
+				vlessVersion = new Uint8Array([0, 0]), 
 				isUDP,
 			} = processVlessHeader(chunk, userID);
 			address = addressRemote;
@@ -388,7 +388,7 @@ function makeReadableWebSocketStream(webSocketServer, earlyDataHeader, log) {
 			});
 
 			webSocketServer.addEventListener('close', () => {
-				safeCloseWebSocket(webSocketServer);
+				safeCloseWebSocket(webSocketServer); 
 				controller.close();
 			});
 
@@ -585,7 +585,7 @@ async function remoteSocketToWS(remoteSocket, webSocket, vlessResponseHeader, re
 				 * @param {*} controller 
 				 */
 				async write(chunk, controller) {
-					hasIncomingData = true;
+					hasIncomingData = true; 
 					remoteChunkCount++;
 					if (webSocket.readyState !== WS_READY_STATE_OPEN) {
 						controller.error(
@@ -634,7 +634,7 @@ async function remoteSocketToWS(remoteSocket, webSocket, vlessResponseHeader, re
 /**
  * Decodes a base64 string into an ArrayBuffer.
  * @param {string} base64Str The base64 string to decode.
- * @returns {{earlyData: ArrayBuffer|null, error: Error|null}} An object containing the decoded ArrayBuffer or null if there was an error, and any error that occurred during decoding or null if there was no error.
+ * @returns {{earlyData: ArrayBuffer|null, error: Error|null}} An object containing the decoded ArrayBuffer or null if there was an error, and any error that occurred during decoding or null if there was no error. 
  */
 function base64ToArrayBuffer(base64Str) {
 	if (!base64Str) {
@@ -788,28 +788,28 @@ const getNormalConfigs = async (env, hostName, client) => {
         throw new Error(`An error occurred while getting normal configs - ${error}`);
     }
 
-    const { cleanIPs, proxyIP, ports } = proxySettings;
+    const { cleanIPs, proxyIP, ports } = proxySettings; 
     const resolved = await resolveDNS(hostName);
-    const Addresses = [
+    const Addresses = [ 
         hostName,
         'www.speedtest.net',
         ...resolved.ipv4,
-        ...resolved.ipv6.map((ip) => `[${ip}]`),
-        ...(cleanIPs ? cleanIPs.split(',') : [])
+        ...resolved.ipv6.map((ip) => `[${ip}]`), 
+        ...(cleanIPs ? cleanIPs.split(',') : []) 
     ];
 
-    ports.forEach(port => {
+    ports.forEach(port => { 
         Addresses.forEach((addr, index) => {
 
             vlessWsTls += 'vless' + `://${userID}@${addr}:${port}?encryption=none&type=ws&host=${
-                randomUpperCase(hostName)}${
-                defaultHttpsPorts.includes(port) 
+                randomUpperCase(hostName)}${ 
+                defaultHttpsPorts.includes(port)  
                     ? `&security=tls&sni=${
                         randomUpperCase(hostName)
                     }&fp=randomized&alpn=${
                         client === 'singbox' ? 'http/1.1' : 'h2,http/1.1'
                     }`
-                    : ''}&path=${`/${getRandomPath(16)}${proxyIP ? `/${encodeURIComponent(btoa(proxyIP))}` : ''}`}${
+                    : ''}&path=${`/${getRandomPath(16)}${proxyIP ? `/${encodeURIComponent(btoa(proxyIP))}` : ''}`}${ 
                         client === 'singbox' 
                             ? '&eh=Sec-WebSocket-Protocol&ed=2560' 
                             : encodeURIComponent('?ed=2560')
@@ -823,17 +823,17 @@ const getNormalConfigs = async (env, hostName, client) => {
 const generateRemark = (index, port) => {
     let remark = '';
     switch (index) {
-       // case 0:
-       // case 1: 
-          //  remark = `💦 BPB - Domain_${index + 1} : ${port}`; 
-        //    break; 
+        case 0:  
+       case 1:  
+          remark = `💦 BPB - Domain_${index + 1} : ${port}`;  
+          break;  
       // case 2: 
        // case 3: 
          //   remark = `💦 BPB - IPv4_${index - 1} : ${port}`; 
          //   break; 
        // case 4: 
-     //  case 5: 
-       //     remark = `💦 BPB - IPv6_${index - 3} : ${port}`; 
+     case 5:  
+       //     remark = `💦 BPB - IPv6_${index - 3} : ${port}`;  
           //  break; 
         default: 
             remark = `💦 BPB - Clean IP_${index - 5} : ${port}`; 

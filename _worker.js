@@ -22,7 +22,7 @@ let dohURL = 'https://cloudflare-dns.com/dns-query';
 
 let panelVersion = '2.4.5';
 
-if (!isValidUUID(userID)) {
+if (!isValidUUID(userID)) { 
     throw new Error('uuid is not valid');
 }
 
@@ -30,7 +30,7 @@ export default {
     /**
      * @param {import("@cloudflare/workers-types").Request} request
      * @param {{UUID: string, PROXYIP: string, DNS_RESOLVER_URL: string}} env
-     * @param {import("@cloudflare/workers-types").ExecutionContext} ctx
+     * @param {import("@cloudflare/workers-types").ExecutionContext} ctx 
      * @returns {Promise<Response>}
      */
     async fetch(request, env, ctx) {
@@ -39,11 +39,11 @@ export default {
             userID = env.UUID || userID;
             proxyIP = env.PROXYIP || proxyIP;
             dohURL = env.DNS_RESOLVER_URL || dohURL;
-            const upgradeHeader = request.headers.get('Upgrade');
+            const upgradeHeader = request.headers.get('Upgrade'); 
             
             if (!upgradeHeader || upgradeHeader !== 'websocket') {
                 
-                const url = new URL(request.url);
+                const url = new URL(request.url); 
                 const searchParams = new URLSearchParams(url.search);
                 const host = request.headers.get('Host');
                 const client = searchParams.get('app');
@@ -52,7 +52,7 @@ export default {
 
                     case '/cf':
                         return new Response(JSON.stringify(request.cf, null, 4), {
-                            status: 200,
+                            status: 200, 
                             headers: {
                                 'Content-Type': 'application/json;charset=utf-8',
                             },
@@ -77,7 +77,7 @@ export default {
                     case `/warpsub/${userID}`:
 
                         const wowConfig = await getWarpConfigs(env, client);
-                        return new Response(`${JSON.stringify(wowConfig, null, 4)}`, { status: 200 });
+                        return new Response(`${JSON.stringify(wowConfig, null, 4)}`, { status: 200 }); 
 
                     case '/panel':
 
@@ -105,7 +105,7 @@ export default {
                         const homePage = await renderHomePage(env, host, fragConfs);
 
                         return new Response(homePage, {
-                            status: 200,
+                            status: 200, 
                             headers: {
                                 'Content-Type': 'text/html',
                                 'Access-Control-Allow-Origin': url.origin,
@@ -113,7 +113,7 @@ export default {
                                 'Access-Control-Allow-Headers': 'Content-Type, Authorization',
                                 'X-Content-Type-Options': 'nosniff',
                                 'X-Frame-Options': 'DENY',
-                                'Referrer-Policy': 'strict-origin-when-cross-origin'
+                                'Referrer-Policy': 'strict-origin-when-cross-origin'  
                             }
                         });
                                                       
@@ -166,7 +166,7 @@ export default {
                                 'Access-Control-Allow-Methods': 'GET, POST',
                                 'Access-Control-Allow-Headers': 'Content-Type, Authorization',
                                 'X-Content-Type-Options': 'nosniff',
-                                'X-Frame-Options': 'DENY',
+                                'X-Frame-Options': 'DENY', 
                                 'Referrer-Policy': 'strict-origin-when-cross-origin'
                             }
                         });
@@ -174,7 +174,7 @@ export default {
                     case '/logout':
                                     
                         return new Response('Success', {
-                            status: 200,
+                            status: 200, 
                             headers: {
                                 'Set-Cookie': 'jwtToken=; Secure; SameSite=None; Expires=Thu, 01 Jan 1970 00:00:00 GMT',
                                 'Content-Type': 'text/plain'
@@ -230,7 +230,7 @@ async function vlessOverWSHandler(request) {
 	let portWithRandomLog = '';
 	let currentDate = new Date();
 	const log = (/** @type {string} */ info, /** @type {string | undefined} */ event) => {
-		console.log(`[${currentDate} ${address}:${portWithRandomLog}] ${info}`, event || '');
+		console.log(`[${currentDate} ${address}:${portWithRandomLog}] ${info}`, event || ''); 
 	};
 	const earlyDataHeader = request.headers.get('sec-websocket-protocol') || '';
 
@@ -269,7 +269,7 @@ async function vlessOverWSHandler(request) {
 			portWithRandomLog = `${portRemote} ${isUDP ? 'udp' : 'tcp'} `;
 			if (hasError) {
 				// controller.error(message);
-				throw new Error(message); // cf seems has bug, controller.error will not end stream
+				throw new Error(message); // cf seems has bug, controller.error will not end stream 
 				// webSocket.close(1000, message);
 				return;
 			}
@@ -823,20 +823,20 @@ const getNormalConfigs = async (env, hostName, client) => {
 const generateRemark = (index, port) => {
     let remark = '';
     switch (index) {
-        case 0:
-        case 1:
-            remark = `💦 BPB - Domain_${index + 1} : ${port}`;
-            break;
-        case 2:
-        case 3:
-            remark = `💦 BPB - IPv4_${index - 1} : ${port}`;
-            break;
-        case 4:
-        case 5:
-            remark = `💦 BPB - IPv6_${index - 3} : ${port}`;
-            break;
-        default:
-            remark = `💦 BPB - Clean IP_${index - 5} : ${port}`;
+       // case 0:
+       // case 1: 
+          //  remark = `💦 BPB - Domain_${index + 1} : ${port}`; 
+        //    break; 
+      // case 2: 
+       // case 3: 
+         //   remark = `💦 BPB - IPv4_${index - 1} : ${port}`; 
+         //   break; 
+       // case 4: 
+     //  case 5: 
+       //     remark = `💦 BPB - IPv6_${index - 3} : ${port}`; 
+          //  break; 
+        default: 
+            remark = `💦 BPB - Clean IP_${index - 5} : ${port}`; 
             break;
     }
 

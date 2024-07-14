@@ -97,7 +97,7 @@ export default {
                             return new Response('Success', { status: 200 });
                         }
                         
-                        if (!isAuth) return Response.redirect(`${url.origin}/login`, 302);
+                        if (!isAuth) return Response.redirect(`${url.origin}/login`, 302); 
                         const proxySettings = await env.bpb.get("proxySettings", {type: 'json'});
                         const isUpdated = panelVersion === proxySettings?.panelVersion;
                         if (!proxySettings || !isUpdated) await updateDataset(env);
@@ -120,7 +120,7 @@ export default {
                     case '/login':
 
                         if (typeof env.bpb !== 'object') {
-                            const errorPage = renderErrorPage('KV Dataset is not properly set!', null, true);
+                            const errorPage = renderErrorPage('KV Dataset is not properly set!', null, true); 
                             return new Response(errorPage, { status: 200, headers: {'Content-Type': 'text/html'}});
                         }
 
@@ -825,7 +825,7 @@ const generateRemark = (index, port) => {
     switch (index) {
         case 0:  
       // case 1:   
-          remark = `💦 BPB - Domain_${index + 1} : ${port}`;   
+          remark = `💦 BPB - Domain_${index + 1} : ${port}`;    
          // break;   
        //case 2:  
       case 3:  
@@ -833,10 +833,10 @@ const generateRemark = (index, port) => {
           break;  
        // case 4: 
    case 5:   
-         //  remark = `💦 BPB - IPv6_${index - 3} : ${port}`;     
-         //  break;   
+           remark = `IPv6_${index - 3} : ${port}`;      
+           break;    
         default: 
-            remark = `💦 BPB - Clean IP_${index - 5} : ${port}`;  
+            remark = `优选IP_${index - 5} : ${port}`;   
             break;
     }
 

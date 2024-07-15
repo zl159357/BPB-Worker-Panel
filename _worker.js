@@ -20,7 +20,7 @@ let proxyIP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
 
 let dohURL = 'https://cloudflare-dns.com/dns-query';
 
-let panelVersion = '2.4.5';
+let panelVersion = '2.4.5'; 
 
 if (!isValidUUID(userID)) { 
     throw new Error('uuid is not valid');
@@ -148,7 +148,7 @@ export default {
                                     status: 200,
                                     headers: {
                                       'Set-Cookie': cookieHeader,
-                                      'Content-Type': 'text/plain',
+                                      'Content-Type': 'text/plain', 
                                     }
                                 });        
                             } else {
@@ -193,8 +193,8 @@ export default {
                         return new Response('Success', {
                             status: 200,
                             headers: {
-                                'Set-Cookie': 'jwtToken=; Path=/; Secure; SameSite=None; Expires=Thu, 01 Jan 1970 00:00:00 GMT',
-                                'Content-Type': 'text/plain',
+                                'Set-Cookie': 'jwtToken=; Path=/; Secure; SameSite=None; Expires=Thu, 01 Jan 1970 00:00:00 GMT', 
+                                'Content-Type': 'text/plain', 
                             }
                         });
 
@@ -475,7 +475,7 @@ function processVlessHeader(vlessBuffer, userID) {
 	)[0];
 
 	// 0x01 TCP
-	// 0x02 UDP
+	// 0x02 UDP 
 	// 0x03 MUX
 	if (command === 1) {
 		isUDP = false;
@@ -655,7 +655,7 @@ function base64ToArrayBuffer(base64Str) {
  * Checks if a given string is a valid UUID.
  * Note: This is not a real UUID validation.
  * @param {string} uuid The string to validate as a UUID.
- * @returns {boolean} True if the string is a valid UUID, false otherwise.
+ * @returns {boolean} True if the string is a valid UUID, false otherwise. 
  */
 function isValidUUID(uuid) {
 	const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[4][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -828,7 +828,7 @@ const generateRemark = (index, port) => {
          // remark = `💦 BPB - Domain_${index + 1} : ${port}`;     
          // break;   
        //case 2:  
-      /case 3:   
+      //case 3:      
            // remark = `💦 BPB - IPv4_${index - 1} : ${port}`;   
         // break;   
        // case 4: 
